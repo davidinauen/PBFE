@@ -29,9 +29,9 @@
 * use both RHO and RMSE (or nRMSE) to estimate forecast profiency
 * all forecasts are based on step-wise prediction
 * perform the following predictive models and compare their forecast profiencies
- * an ARIMA(0,1,0) (random walk)
- * univariate EDM 
- * multivariate EDM
+  * an ARIMA(0,1,0) (random walk)
+  * univariate EDM 
+  * multivariate EDM
 
 (Note 1: When performing the EDM Analysis on the STITCHED.TS data the library used to train the models will be the first 40 time points of each of the composited time series, e.g if the whole time series measures (66+66+66) 198 time points, not the time points [1-160] will be taken as library but rather [1-40, 67-107, 133-173]
 
