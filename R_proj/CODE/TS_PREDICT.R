@@ -8,6 +8,7 @@ library(rEDM)
 library(dplyr)
 library(ggplot2)
 library(forecast)
+library(tidyr)
 
 
 ##################################
@@ -47,13 +48,16 @@ for (i in 1:length(IDs)){
     temp.variable$time <- c(1:65)
     temp.variable <- temp.variable[,c(2,1)]
     
-    # run random walk
-    fit <- Arima(as.ts(temp.variable[1:midpoint,2]), order = c(0,1,0))
-    fit2 <- ets(temp.variable[midpoint:length(max(temp.variable$time)),2], model = fit)
+    # run random walk (TS already differenced, thus not 0,1,0?)
+    fit <- Arima(as.ts(temp.variable[1:midpoint,2]),
+                 order = c(0,1,0))
+    fit2 <- Arima(as.ts(
+      temp.variable[midpoint:
+        max(temp.variable$time),2]),
+                model = fit)
     onestep <- fitted(fit2)
     
     # run univar edm
-    
     simp.tmp <- simplex(temp.variable, E=1:10, silent = T)
     bestE <- simp.tmp[which.min(simp.tmp$mae),"E"] # estimates optimal embedding dimension
     
